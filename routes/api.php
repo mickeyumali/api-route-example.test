@@ -14,6 +14,7 @@ use App\Http\Controllers\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::get('/hello', [UserController::class, 'index']);
 
 Route::get('/broke', function () {

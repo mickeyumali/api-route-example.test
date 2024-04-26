@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\TokenCheckerMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,43 +15,31 @@ use Illuminate\Support\Facades\Route;
 |  mickeyumali1170
 |  HATDOGRAM_123456789
 */
+// GET Route
+Route::get('/resource', function () {
+  return "get data";
+})->middleware(TokenCheckerMiddleware::class);
 
-Route::get('/cute', function () {
-  return 'cute ko JM Umali';
-});
+// POST Route
+Route::post('/resource', function () {
+  return "access granted";
+})->middleware(TokenCheckerMiddleware::class);
 
-// Route::any('/updateUserInfo', function () {
-//   return "this route is to accepts any http verb only";
-// });
+// PUT Route
+Route::put('/resource/{id}', function ($id) {
+  return response()->json(['message' => 'PUT method accessed for resource with ID ' . $id]);
+})->middleware(TokenCheckerMiddleware::class);
 
-// Route::get('/users', function (Request $request){
-//   return $request->name .'-'. $request->email;
-// });
+// PATCH Route
+Route::patch('/resource/{id}', function ($id) {
+  return response()->json(['message' => 'PATCH method accessed for resource with ID ' . $id]);
+})->middleware(TokenCheckerMiddleware::class);
 
-//post
-Route::post('/register', function () {
-    return "heloo mickey";
-});
+// DELETE Route
+Route::delete('/resource/{id}', function ($id) {
+  return response()->json(['message' => 'DELETE method accessed for resource with ID ' . $id]);
+})->middleware(TokenCheckerMiddleware::class);
 
-// put
-Route::put('/update', function () {
-  return "Your email is updated";
-});
-
-// patch
-Route::patch('/update2', function () {
-  return "Your email is updated";
-});
-
-// delete
-Route::delete('/drop', function () {
-  return "Your account is deleted";
-});
-
-// options
-Route::options('/options-method', function () {
-  return 1+1;
-});
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
